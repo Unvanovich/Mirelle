@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mirelle Flowers | Luxury Boutique Tashkent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: #fff; color: #1a1a1a; scroll-behavior: smooth; overflow-x: hidden; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Верхнее затемнение для читаемости */
+        .header-gradient { background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%); }
+        .hero-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)); }
+
+        /* Стеклянные элементы */
+        .glass-container {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 15px;
+        }
+        .nav-btn-static {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            z-index: 40;
+        }
+
+        .scroll-container { scroll-snap-type: x mandatory; }
+        .scroll-item { scroll-snap-align: center; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="fixed w-full z-50">
+        <div class="header-gradient absolute inset-0 h-24 -z-10"></div>
+        <div class="px-6 md:px-12 py-6 flex justify-between items-center">
+            <div class="text-white text-2xl md:text-3xl font-light tracking-[0.5em]">MIRELLE</div>
+            
+            <div class="flex items-center space-x-6 md:space-x-12">
+                <nav class="hidden md:flex space-x-10 text-[10px] uppercase tracking-[0.3em] font-medium text-white/90">
+                    <a href="#collection" class="hover:text-white transition">Коллекции</a>
+                    <a href="#boutique" class="hover:text-white transition">О бутике</a>
+                    <a href="#contact" class="hover:text-white transition">Контакты</a>
+                </nav>
+                <a href="https://t.me/mirelle_flowers" class="bg-white text-black px-6 py-2.5 text-[10px] uppercase tracking-[0.2em] font-bold shadow-xl transition hover:bg-stone-100">
+                    Заказать
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ВОССТАНОВЛЕННЫЙ HERO SECTION -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Ваше фото экстерьера -->
+        <img src="hero.webp" class="absolute inset-0 w-full h-full object-cover" alt="Mirelle Boutique Exterior">
+        <div class="absolute inset-0 hero-overlay"></div>
+        
+        <div class="relative z-10 text-center text-white px-4">
+            <h1 class="text-5xl md:text-8xl font-serif italic mb-6">Вау-эффект гарантирован</h1>
+            <p class="text-xs md:text-sm uppercase tracking-[0.4em] font-light mb-12">Букеты, которые меняют пространство</p>
+            <a href="#collection" class="border border-white/40 backdrop-blur-sm px-12 py-5 text-[10px] uppercase tracking-[0.3em] hover:bg-white hover:text-black transition duration-500">Войти в каталог</a>
+        </div>
+    </section>
+
+    <!-- COLLECTION SECTION (Horizontal Slider) -->
+    <section id="collection" class="py-32 bg-[#F6F6F6] relative">
+        <div class="text-center mb-20">
+            <h2 class="text-3xl md:text-5xl font-serif italic mb-2">Наши коллекции</h2>
+            <div class="w-12 h-[1px] bg-stone-300 mx-auto"></div>
+        </div>
+
+        <!-- Кнопки управления по краям -->
+        <button onclick="scrollLeftBtn()" class="nav-btn-static absolute left-4 md:left-8 top-[55%] -translate-y-1/2 w-14 h-14 rounded-full flex items-center justify-center shadow-lg">
+            <svg width="24" height="24" fill="none" stroke="#000" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+
+        <button onclick="scrollRightBtn()" class="nav-btn-static absolute right-4 md:right-8 top-[55%] -translate-y-1/2 w-14 h-14 rounded-full flex items-center justify-center shadow-lg">
+            <svg width="24" height="24" fill="none" stroke="#000" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+        <div id="slider" class="flex overflow-x-auto hide-scrollbar scroll-container gap-12 px-8 md:px-[15vw]">
+            <script>
+                const bouquets = [
+                    {id: 1, name: 'Синее Облако', price: '2 800 000 UZS'},
+                    {id: 2, name: 'Маджента Гранд', price: '5 500 000 UZS'},
+                    {id: 3, name: 'Весенний Манифест', price: '1 900 000 UZS'},
+                    {id: 4, name: 'Небесная Гортензия', price: '3 200 000 UZS'},
+                    {id: 5, name: 'Кремовый Атлас', price: '2 400 000 UZS'},
+                    {id: 6, name: 'Тюльпановый Микс', price: '1 750 000 UZS'},
+                    {id: 7, name: 'Маджента Фьюжн', price: '4 100 000 UZS'},
+                    {id: 8, name: 'Персиковый Шлейф', price: '3 800 000 UZS'},
+                    {id: 9, name: 'Розовое Облако', price: '4 500 000 UZS'}
+                ];
+
+                document.write(bouquets.map(b => `
+                    <div class="scroll-item flex-shrink-0 w-[85vw] md:w-[450px]">
+                        <div class="glass-container">
+                            <div class="aspect-[3/4] overflow-hidden bg-stone-100">
+                                <img src="${b.id}.webp" class="w-full h-full object-cover" alt="${b.name}">
+                            </div>
+                        </div>
+                        <div class="mt-8 px-2">
+                            <h3 class="text-2xl font-serif italic text-stone-800 opacity-70 mb-1">${b.name}</h3>
+                            <p class="font-medium tracking-[0.2em] text-[12px] text-stone-900 opacity-40 uppercase">${b.price}</p>
+                        </div>
+                    </div>
+                `).join(''));
+            </script>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="boutique" class="py-24 px-6 md:px-20 bg-white border-b border-stone-100">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-20 items-center">
+            <div class="w-full md:w-1/2">
+                <img src="about.webp" class="w-full shadow-2xl" alt="Mirelle Interior">
+            </div>
+            <div class="w-full md:w-1/2 text-center md:text-left">
+                <span class="text-[10px] uppercase tracking-[0.4em] text-stone-400 mb-6 block font-semibold italic">Mirelle Boutique</span>
+                <h2 class="text-4xl md:text-6xl font-serif italic mb-8 leading-tight">Искусство дарить <br>впечатления.</h2>
+                <p class="text-stone-500 font-light leading-relaxed mb-10 opacity-80 text-lg">Наш бутик — это новое слово в эстетике города. Мы создали пространство, где масштаб букетов подчеркивает глубину Ваших чувств.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER (COMPACT & CLEAN) -->
+    <footer id="contact" class="bg-[#080808] text-white py-16 px-6">
+        <div class="max-w-5xl mx-auto">
+            
+            <!-- 1. ЛОГОТИП -->
+            <div class="text-center mb-10">
+                <div class="text-2xl tracking-[0.6em] font-light uppercase opacity-90">MIRELLE</div>
+            </div>
+
+            <!-- 2. КНОПКИ СОЦСЕТЕЙ (СБЛИЖЕНЫ) -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-3 mb-10">
+                <a href="https://t.me/mirelle_flowers" class="group relative w-full md:w-56 h-12 flex items-center justify-center border border-white/10 overflow-hidden transition-all duration-500">
+                    <span class="relative z-10 text-[9px] uppercase tracking-[0.3em] font-bold group-hover:text-black transition-colors duration-500">Telegram</span>
+                    <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                </a>
+                
+                <a href="https://instagram.com/mirelleflowers.boutique" target="_blank" class="group relative w-full md:w-56 h-12 flex items-center justify-center border border-white/10 overflow-hidden transition-all duration-500">
+                    <span class="relative z-10 text-[9px] uppercase tracking-[0.3em] font-bold group-hover:text-black transition-colors duration-500">Instagram</span>
+                    <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                </a>
+            </div>
+
+            <!-- 3. КОНТАКТНЫЕ ДАННЫЕ (ПЛОТНО К КНОПКАМ) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <!-- Звонок -->
+                <div>
+                    <h4 class="text-[8px] uppercase tracking-[0.4em] text-stone-600 mb-2">Связаться</h4>
+                    <p class="text-xs font-light tracking-widest">+998 90 000 00 00</p>
+                </div>
+                <!-- Адрес -->
+                <div>
+                    <h4 class="text-[8px] uppercase tracking-[0.4em] text-stone-600 mb-2">Найти нас</h4>
+                    <p class="text-xs font-light tracking-widest">Ташкент, ул. Юсуфа Хос Ходжиба</p>
+                </div>
+                <!-- Режим работы -->
+                <div>
+                    <h4 class="text-[8px] uppercase tracking-[0.4em] text-stone-600 mb-2">Бутик открыт</h4>
+                    <p class="text-xs font-light tracking-widest">09:00 — 01:00 ежедневно</p>
+                </div>
+            </div>
+
+            <!-- КОПИРАЙТ -->
+            <div class="mt-16 text-center text-stone-900 text-[7px] uppercase tracking-[0.8em] opacity-50">
+                Luxury Floristry Boutique • 2024
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const slider = document.getElementById('slider');
+        function scrollRightBtn() { slider.scrollBy({ left: 480, behavior: 'smooth' }); }
+        function scrollLeftBtn() { slider.scrollBy({ left: -480, behavior: 'smooth' }); }
+    </script>
+
+</body>
+</html>
